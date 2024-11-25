@@ -3,9 +3,18 @@ package backjoon.dp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.StringTokenizer;
 
 public class Solution14501 {
+
+    /**
+     * https://www.acmicpc.net/problem/14501
+     * 실버3
+     * 알고리즘 : dp
+     * Not Sol
+     */
 
     public static void main(String[] args) throws IOException {
 
@@ -21,21 +30,38 @@ public class Solution14501 {
         }
 
 
-        int[] dp = new int[num + 1];
+        int[] dp = new int[num];
 
-         for (int i = 0 ; i < num ; i++) {
 
-            if (i + arr[i][0] < num){
-                dp[i + arr[i][0]] = Math.max(dp[i + arr[i][0]], dp[i + arr[i][0]] + arr[i][1]);
+        for (int i = 0 ; i < arr.length ; i++) {
+
+            if (arr[i][0] + i <= num) {
+
+
+
+                if ( i == 0) {
+                    dp[i + arr[i][0] -1] = Math.max(dp[i + arr[i][0] -1], dp[i] + arr[i][1]);
+                }
+
+                else {
+                    dp[i + arr[i][0] -1] = Math.max(dp[i + arr[i][0] -1], dp[i - 1] + arr[i][1]);
+                }
+
+
+                if (i != arr.length-1){
+                    dp[i+1] = Math.max(dp[i+1], dp[i]);
+                }
             }
-
-             dp[i+1] = Math.max(dp[i+1], dp[i]);
 
 
         }
 
 
-        System.out.println();
+        Arrays.sort(dp);
+
+        System.out.println(dp[dp.length-1]);
+
+
 
 
     }
