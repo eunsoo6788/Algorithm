@@ -7,10 +7,13 @@ import java.util.Stack;
 
 public class Solution169199 {
 
+
     public int solution(String[] board) {
         int answer = 0;
 
-        Queue<int[][]> queue = new LinkedList<>();
+        Queue<int[]> queue = new LinkedList<>();
+
+
 
 
 
@@ -20,8 +23,11 @@ public class Solution169199 {
     }
 
 
-    private void bfs(Queue<int[][]> queue) {
+    private void bfs(Queue<int[]> queue, int x, int y) {
 
+
+
+        queue.add(new int[]{x,y});
 
 
         while (!queue.isEmpty()) {
