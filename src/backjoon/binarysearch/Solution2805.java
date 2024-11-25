@@ -1,4 +1,4 @@
-package backjoon.dp;
+package backjoon.binarysearch;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,15 @@ import java.util.StringTokenizer;
 
 public class Solution2805 {
 
+    /**
+     * https://www.acmicpc.net/problem/2805
+     * 실버2
+     * 알고리즘 : 이분탐색
+     * Not Sol
+     */
+
     public static void main(String[] args) throws IOException {
+
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -16,39 +24,41 @@ public class Solution2805 {
         int target = Integer.parseInt(st.nextToken());
 
 
+        StringTokenizer st1 = new StringTokenizer(br.readLine(), " ");
         int[] arr = new int[num];
 
-        long low = 1;
-        long high = Integer.MAX_VALUE;
 
-        for (int i = 0 ; i < num ; i++) {
-            arr[i] = Integer.parseInt(br.readLine());
-            high = Math.min(high, arr[i]);
+        long high = 0;
+        long low = 0;
+
+        for (int i = 0; i < num; i++) {
+            arr[i] = Integer.parseInt(st1.nextToken());
+            high = Math.max(high, arr[i]);
         }
-
 
         while (low <= high) {
 
-            long mid = (low + high) / 2;
-            long sum = 0;
+            long mid = (high + low) / 2;
+            int sum = 0;
 
+            for (int i = 0; i < num; i++) {
 
-            for (int i = 0 ; i < num ; i++) {
-                sum += arr[i]/mid;
+                if (arr[i] > mid) {
+                    sum += (int) (arr[i] - mid);
+                }
             }
 
 
             if (sum >= target) {
                 low = mid + 1;
             } else {
-                high = mid - 1 ;
+                high = mid - 1;
             }
+
 
         }
 
         System.out.println(high);
-
-
 
 
     }
