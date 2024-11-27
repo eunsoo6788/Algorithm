@@ -1,13 +1,13 @@
 package programmers;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Stack;
 
 public class Sol12941 {
 
     public int solution(int []A, int []B)
     {
+
+
         int answer = 0;
 
         Arrays.sort(A);
