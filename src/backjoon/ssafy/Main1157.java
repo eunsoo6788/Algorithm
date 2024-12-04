@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 public class Main1157 {
 
@@ -15,9 +14,7 @@ public class Main1157 {
 
         String str = br.readLine().toUpperCase();
 
-
         Map<Character, Integer> map = new HashMap<>();
-
         for (int i = 0; i < str.length(); i++) {
             map.put(str.charAt(i), map.getOrDefault(str.charAt(i), 0) + 1);
         }
