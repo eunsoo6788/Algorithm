@@ -6,6 +6,13 @@ import java.io.InputStreamReader;
 
 public class Solution2156 {
 
+    /**
+     * 포도주 2156
+     * 실버1
+     * 알고리즘 : dp
+     * Not Sol -
+     */
+
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -18,17 +25,18 @@ public class Solution2156 {
         }
 
         dp[0] = arr[0];
-        dp[1] = arr[1];
-        dp[2] = arr[2];
+        dp[1] = dp[0] + arr[1];
+        dp[2] = Math.max(arr[0] + arr[2], arr[1]+ arr[2]);
 
-
-        for (int i = 3; i < num; i++) {
-
-            int caseOne = dp[i-1] + dp[i-3];
-            int caseTwo = dp[i-2] + dp[i-3];
-
-
+        for (int i =3 ; i < num ; i++) {
+            dp[i] = Math.max(dp[i-1]+ arr[i], dp[i-2] + arr[i]);
         }
+
+        System.out.println();
+
+
+
+
 
     }
 
