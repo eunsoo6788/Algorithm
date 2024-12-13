@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 public class Solution16953 {
 
     /**
-     * https://www.acmicpc.net/problem/16953
+     * 16953
      * 실버2
      * 알고리즘 : dfs
      * Not Sol

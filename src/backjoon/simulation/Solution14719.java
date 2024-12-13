@@ -10,7 +10,7 @@ public class Solution14719 {
     /**
      * 백준 : 빗물 14719
      * 알고리즘 : 구현
-     * not sol
+     * sol
      * 골드 5
      */
 
