@@ -3,10 +3,9 @@ package backjoon.dp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Solution1890 {
+public class Solution9465 {
 
     /**
      * 점프 1890
