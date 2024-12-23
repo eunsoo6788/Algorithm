@@ -9,50 +9,50 @@ import java.util.StringTokenizer;
 public class Solution1920 {
 
     /**
-     * https://www.acmicpc.net/problem/1920
+     * 수 찾기 1920
+     * 이분탐색
      * 실버4
-     * 알고리즘 : 이분탐색
-     * Not Sol
+     * Sol
      */
 
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int num = Integer.parseInt(br.readLine());
-        int[] arr = new int[num];
+
+        // 비교 되는 배열
+        long[] arr = new long[num];
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         for (int i = 0; i < num; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
+        Arrays.sort(arr);
+        long max = arr[num-1];
 
-        int num2 = Integer.parseInt(br.readLine());
-        int[] arr2 = new int[num2];
+
+        // 해당 값이 비교 되는 배열에 있는지 확인한는 문제 배열
+        int problemNum = Integer.parseInt(br.readLine());
+        long[] problemArr = new long[problemNum];
+        int[] answer = new int[problemNum];
         StringTokenizer st2 = new StringTokenizer(br.readLine(), " ");
-        for (int i = 0; i < num2; i++) {
-            arr2[i] = Integer.parseInt(st2.nextToken());
+        for (int i = 0; i < problemNum; i++) {
+            problemArr[i] = Integer.parseInt(st2.nextToken());
         }
 
-        Arrays.sort(arr);
 
+        for (int i = 0 ; i < problemNum ; i++) {
 
-        int[] answer = new int[num2];
-        for (int i = 0; i < num2; i++) {
+            int low = 0;
+            int high = num-1;
 
+            while (low <= high) {
 
-            int targetNum = arr2[i];
+                int mid = (low + high) /2 ;
 
-            long high = num - 1;
-            long low = 0;
-
-            while (high >= low) {
-
-                long mid = (high + low) / 2;
-
-
-                if (arr[(int) mid] > targetNum) {
-                    high = mid - 1;
-                } else if (arr[(int) mid] < targetNum) {
-                    low = mid + 1;
+                if (arr[mid] > problemArr[i]) {
+                    high = mid -1;
+                } else if (arr[mid] < problemArr[i]) {
+                    low = mid +1;
                 } else {
                     answer[i] = 1;
                     break;
@@ -65,6 +65,9 @@ public class Solution1920 {
         for (int i : answer) {
             System.out.println(i);
         }
+
+
+
 
 
     }
