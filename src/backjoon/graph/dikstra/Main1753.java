@@ -78,6 +78,14 @@ public class Main1753 {
         }
 
 
+        for (int i = 1 ; i <= nodeNum ; i++){
+            if (result[i] == Integer.MAX_VALUE) {
+                System.out.println("INF");
+            } else {
+                System.out.println(result[i]);
+            }
+        }
+
 
 
     }
