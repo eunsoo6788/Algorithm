@@ -55,8 +55,8 @@ public class Solution5972Re {
         }
 
 
-        PriorityQueue<Node> pq = new PriorityQueue<>();
-        pq.add(new Node(1,0));
+        PriorityQueue<Node> pq = new PriorityQueue<>((Comparator.comparingInt(o -> o.weight)));
+        pq.offer(new Node(1,0));
         result[1] = 0;
 
         while (!pq.isEmpty()) {
@@ -69,30 +69,17 @@ public class Solution5972Re {
                 for (int i = 0 ; i < nodeList[now.end].size() ; i++) {
                     Node next  = nodeList[now.end].get(i);
 
-                    if (!visited[next.end] && now.weight + next.weight < result[next.weight]) {
-                        visited[next.end] = true;
-                        result[next.weight] = 
-
-
+                    if (now.weight + next.weight < result[next.end]) {
+                        result[next.end] = now.weight + next.weight;
+                        pq.add(new Node(next.end, result[next.end]));
                     }
-
-
-
                 }
-
             }
-
-
-
-
-
         }
 
-
-
+        System.out.println(result[nodeNum]);
 
     }
-
 
 
 }
