@@ -3,84 +3,54 @@ package backjoon.backtracking;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class Solution7490 {
 
-    private static int target;
+    /**
+     * 링크와 스타트
+     * 백트래킹
+     * not sol
+     * 골드5
+     */
+
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int testcase = Integer.parseInt(br.readLine());
+        int caseNum = Integer.parseInt(br.readLine());
 
 
-        for (int test = 0; test < testcase; test++) {
-            target = Integer.parseInt(br.readLine());
-            int[] arr = new int[target - 1];
-            backtracking(0, arr);
+        for (int test = 0; test < caseNum; test++) {
+
+            int num = Integer.parseInt(br.readLine());
+
+            backTracking(num, 2, 1, 1, "1");
+            System.out.println();
         }
-
 
     }
 
-    private static void backtracking(int index, int[] arr) {
 
-        if (index == target - 2) {
+    private static void backTracking(int num, int depth, int sum, int before, String str) {
 
-            int sum = 1;
-            for (int i = 2; i <= target; i++) {
-
-                if (arr[i - 2] == 0) {
-                    sum += i;
-                }
-
-                if (arr[i - 2] == 1) {
-                    sum -= i;
-                }
-
-                if (arr[i - 2] == 2) {
-                    int value = i;
-                    while (arr[i - 2] == 2) {
-                        value = value * 10 + (i + 1);
-                        i++;
-                    }
-                    i--;
-                    sum += value;
-                }
-            }
+        if (depth == num + 1) {
 
             if (sum == 0) {
-                System.out.print("1");
-                for (int i = 0; i < arr.length; i++) {
-                    if (arr[i] == 0) {
-                        System.out.print("+");
-                    }
-
-                    if (arr[i] == 1) {
-                        System.out.print("-");
-                    }
-
-                    if (arr[i] == 2) {
-                        System.out.print(" ");
-                    }
-
-                    System.out.print(i + 2);
-                }
-
-                System.out.println();
-
-
+                System.out.println(str);
             }
+
 
             return;
         }
 
 
-        for (int i = 0; i < 3; i++) {
-            arr[index] = i;
-            backtracking(index + 1, arr);
+        backTracking(num, depth + 1, before > 0 ? sum - before + (before * 10 + depth) : sum + (before*-1) + (before * 10 - depth), before > 0 ? before * 10 + depth : (before * 10 - depth), str + " " + depth);
+        backTracking(num, depth + 1, sum + depth, depth, str + "+" + depth);
+        backTracking(num, depth + 1, sum - depth, depth * -1, str + "-" + depth);
 
-        }
 
     }
 
