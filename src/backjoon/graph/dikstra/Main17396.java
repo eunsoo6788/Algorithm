@@ -6,20 +6,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main18352 {
+public class Main17396 {
 
     /**
-     * 특정 거리의 도시 찾기
+     * 백도어
      * 다익스트라
-     * 실버2
-     * Sol
+     * 골드5
+     * not Sol
      */
 
     private static class Node {
         int end;
-        int weight;
+        long weight;
 
-        public Node(int end, int weight) {
+        public Node(int end, long weight) {
             this.end = end;
             this.weight = weight;
         }
@@ -33,33 +33,39 @@ public class Main18352 {
         // 도시의 개수 N, 도로의 개수 M, 거리 정보 K, 출발 도시의 번호 X
         int nodeNum = Integer.parseInt(st.nextToken());
         int edgeNum = Integer.parseInt(st.nextToken());
-        int distance = Integer.parseInt(st.nextToken());
-        int startNode = Integer.parseInt(st.nextToken());
 
 
-        List<Node>[] lists = new List[nodeNum+1];
-        boolean[] visited = new boolean[nodeNum+1];
-        int[] result = new int[nodeNum+1];
+        List<Node>[] lists = new List[nodeNum];
+        boolean[] visited = new boolean[nodeNum];
+        long[] result = new long[nodeNum];
+        int[] visible = new int[nodeNum];
 
-
-        for (int i = 0; i <= nodeNum ; i++) {
+        st = new StringTokenizer(br.readLine(), " ");
+        for (int i = 0; i < nodeNum ; i++) {
+            visible[i] = Integer.parseInt(st.nextToken());
             lists[i] = new ArrayList<>();
-            result[i] = Integer.MAX_VALUE;
+            result[i] = Long.MAX_VALUE;
         }
+
+        visible[0] = 0;
+        visible[nodeNum-1] = 0;
 
         for (int i = 0 ; i < edgeNum ; i++) {
             st = new StringTokenizer(br.readLine()," ");
 
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
+            int weight = Integer.parseInt(st.nextToken());
 
-            lists[start].add(new Node(end,1));
+            lists[start].add(new Node(end,weight));
+            lists[end].add(new Node(start,weight));
         }
 
 
+
         PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparing(o -> o.weight));
-        result[startNode] = 0;
-        pq.add(new Node(startNode,0));
+        result[0] = 0;
+        pq.add(new Node(0,0));
 
 
         while (!pq.isEmpty()) {
@@ -75,26 +81,18 @@ public class Main18352 {
 
             for (Node next : lists[now.end]) {
 
-                if (!visited[next.end] && now.weight + next.weight < result[next.end]) {
+                if (visible[next.end] == 0 && !visited[next.end] && now.weight + next.weight < result[next.end]) {
                     result[next.end]  = now.weight + next.weight;
                     pq.add(new Node(next.end, result[next.end]));
                 }
             }
         }
 
-
-        int count = 0;
-        for (int i = 0 ; i <= nodeNum ; i++ ){
-            if (result[i] == distance) {
-                System.out.println(i);
-                count++;
-            }
-        }
-
-
-        if (count == 0) {
+        if (result[nodeNum-1] == Long.MAX_VALUE) {
             System.out.println(-1);
+            return;
         }
+        System.out.println(result[nodeNum-1]);
     }
 
 

@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main18352 {
+public class Main5972 {
 
     /**
-     * 특정 거리의 도시 찾기
+     * 택배배송
      * 다익스트라
-     * 실버2
-     * Sol
+     * 골드5
+     * not Sol
      */
 
     private static class Node {
@@ -33,8 +33,6 @@ public class Main18352 {
         // 도시의 개수 N, 도로의 개수 M, 거리 정보 K, 출발 도시의 번호 X
         int nodeNum = Integer.parseInt(st.nextToken());
         int edgeNum = Integer.parseInt(st.nextToken());
-        int distance = Integer.parseInt(st.nextToken());
-        int startNode = Integer.parseInt(st.nextToken());
 
 
         List<Node>[] lists = new List[nodeNum+1];
@@ -52,14 +50,16 @@ public class Main18352 {
 
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
+            int weight = Integer.parseInt(st.nextToken());
 
-            lists[start].add(new Node(end,1));
+            lists[start].add(new Node(end,weight));
+            lists[end].add(new Node(start,weight));
         }
 
 
         PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparing(o -> o.weight));
-        result[startNode] = 0;
-        pq.add(new Node(startNode,0));
+        result[1] = 0;
+        pq.add(new Node(1,0));
 
 
         while (!pq.isEmpty()) {
@@ -82,19 +82,7 @@ public class Main18352 {
             }
         }
 
-
-        int count = 0;
-        for (int i = 0 ; i <= nodeNum ; i++ ){
-            if (result[i] == distance) {
-                System.out.println(i);
-                count++;
-            }
-        }
-
-
-        if (count == 0) {
-            System.out.println(-1);
-        }
+        System.out.println(result[nodeNum]);
     }
 
 
