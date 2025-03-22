@@ -25,19 +25,18 @@ public class Solution3967 {
 
 
         arr = new char[ySize][xSize];
-        size = 'L'-'A' +1;
+        size = 'L' - 'A' + 1;
         visited = new boolean[size];
         map = new char[size];
 
 
-
-        for (int i = 0 ; i < ySize ; i++) {
+        for (int i = 0; i < ySize; i++) {
             String str = br.readLine();
-            for (int j = 0 ; j < xSize ; j++) {
+            for (int j = 0; j < xSize; j++) {
                 char c = str.charAt(j);
 
-                if (c != '.' && c!= 'x') {
-                    visited[c-'A'] = true;
+                if (c != '.' && c != 'x') {
+                    visited[c - 'A'] = true;
                 }
 
                 arr[i][j] = c;
@@ -51,11 +50,25 @@ public class Solution3967 {
     }
 
 
-    private static void backTracking(String str) {
+    private static void backTracking(int depth) {
+
+        if (depth == size) {
 
 
 
-        for (int i =0 ; i < size ; i++) {
+
+
+        }
+
+
+        for (int i = 0; i < size; i++) {
+
+            if (!visited[i]) {
+                visited[i] = true;
+                map[depth] = (char) ('A' - i);
+                backTracking(depth + 1);
+                visited[i] = false;
+            }
 
         }
 
