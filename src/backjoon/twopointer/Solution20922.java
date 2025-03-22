@@ -3,7 +3,6 @@ package backjoon.twopointer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -11,50 +10,62 @@ import java.util.StringTokenizer;
 public class Solution20922 {
 
     /**
-     * 백준 : 겹치는 건 싫어 20922
-     * 알고리즘 : 투 포인터
+     * 겹치는 건 싫어
+     * 투 포인터
      * not sol
-     * 실버 1
+     * 실버1
      */
 
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st1 = new StringTokenizer(br.readLine(), " ");
-        int num = Integer.parseInt(st1.nextToken());
-        int size = Integer.parseInt(st1.nextToken());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int num = Integer.parseInt(st.nextToken());
+        int success = Integer.parseInt(st.nextToken());
 
         int[] arr = new int[num];
-
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < num; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        int[] score = new int[100_001];
 
-        int low = 0;
-        int high = 0;
+        Map<Integer, Integer> map = new HashMap<>();
 
-        int max = 0;
-        while(high <= num-1) {
+        int length = 0;
+
+        int left = 0;
+        int right = 0;
+        while (right < num) {
 
 
-            score[arr[high]]++;
 
-            if (score[arr[high]] > size) {
-                score[arr[high]]--;
-                low++;
+            while (right < num && map.getOrDefault(arr[right], 0) < success) {
+                map.put(arr[right], map.getOrDefault(arr[right], 0) + 1);
+                length = Math.max(length, right - left+1);
+                right++;
             }
 
-            max = Math.max(max,high - low+1);
+            if (right == num) {
+                break;
+            }
 
-            high++;
+            while (left < right  && arr[left] != arr[right]) {
+                map.put(arr[left], map.getOrDefault(arr[left], 0) - 1);
+                left++;
+            }
+
+            map.put(arr[left], map.getOrDefault(arr[left], 0) - 1);
+            left++;
 
         }
 
 
-        System.out.println(max);
+
+
+        System.out.println(length);
+
 
     }
 }
