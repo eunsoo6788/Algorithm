@@ -1,4 +1,4 @@
-package backjoon.bfs;
+package backjoon.graph.bfs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class Solution1697 {
+public class Solution1697Re {
 
     /**
      * 숨바꼭질
@@ -48,14 +48,17 @@ public class Solution1697 {
             }
 
             if (now[0]+1 < 100001 && !visited[now[0]+1]) {
+                visited[now[0]+1] = true;
                 queue.add(new int[]{now[0]+1, now[1] + 1});
             }
 
-            if (now[0]-1 < 100001 &&!visited[now[0]-1]) {
+            if (now[0]-1 >=0  &&!visited[now[0]-1]) {
+                visited[now[0]-1] = true;
                 queue.add(new int[]{now[0]-1, now[1] + 1});
             }
 
             if (now[0]*2 < 100001 &&!visited[now[0]*2]) {
+                visited[now[0]*2] = true;
                 queue.add(new int[]{now[0]*2, now[1] + 1});
             }
 

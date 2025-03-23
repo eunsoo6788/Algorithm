@@ -1,16 +1,18 @@
-package backjoon.bfs;
+package backjoon.graph.bfs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
-public class Solution1325 {
+public class Solution16953 {
 
     /**
-     * https://www.acmicpc.net/problem/1325
-     * 실버1
-     * 알고리즘 : dfs bfs
+     * 16953
+     * 실버2
+     * 알고리즘 : dfs
      * Not Sol
      */
 
@@ -19,36 +21,49 @@ public class Solution1325 {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        List<int[]> list = new ArrayList<>();
-        while (true) {
-            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-            int start = Integer.parseInt(st.nextToken());
-            int end = Integer.parseInt(st.nextToken());
-            list.add(new int[]{start, end});
-        }
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        int start = Integer.parseInt(st.nextToken());
+        int end = Integer.parseInt(st.nextToken());
 
+        bfs(start, end);
 
     }
 
-    private static void bfs(List<int[]> list, boolean[] visited, int start, int end, int index) {
+    private static void bfs(int start, int end) {
 
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{start, end, 1});
-        visited[index] = true;
-
+        Queue<long[]> queue = new LinkedList<>();
+        queue.add(new long[]{start,1});
 
         while (!queue.isEmpty()) {
 
-            int[] poll = queue.poll();
+            long[] poll = queue.poll();
 
-            for (int i = 0; i < list.size(); i++) {
-                if (!visited[i] && poll[1] == list.get(i)[0]) {
-                    visited[i] = true;
-                    queue.add(new int[]{list.get(i)[0], list.get(i)[1], poll[2]+1});
-                }
+            if (poll[0] == end) {
+                System.out.println(poll[1]);
+                break;
             }
 
+            if (poll[1] > end){
+                System.out.println(-1);
+                break;
+            }
+
+            for (int i = 0 ; i < 2 ; i++) {
+
+                if (i == 0) {
+                    queue.add(new long[]{poll[0]*2,poll[1]+1});
+                }
+
+
+                if (i == 1) {
+                    queue.add(new long[]{poll[0]*10 + 1,poll[1]+1});
+                }
+
+            }
         }
+
+
+
 
 
     }
@@ -111,6 +126,7 @@ public class Solution1325 {
 //
 //    }
 //
+
 
 
 }
