@@ -1,4 +1,4 @@
-package backjoon.graph.graph;
+package backjoon.graph.floyd;
 
 
 import java.io.BufferedReader;
@@ -11,7 +11,7 @@ public class Main2660 {
     /**
      * 회장뽑기
      * 골드5
-     * 알고리즘 : bfs, graph
+     * 알고리즘 : floyd warshall
      */
 
     private static int num;
