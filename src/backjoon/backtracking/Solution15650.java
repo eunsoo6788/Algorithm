@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class Solution15649 {
+public class Solution15650 {
 
     /**
-     * N과 M (1)
+     * N과 M (2)
      * 실버3
      * 백트래킹
      */
+
 
     private static boolean[] visited;
 
@@ -29,13 +30,13 @@ public class Solution15649 {
 
         List<Integer> list = new ArrayList<>();
 
-        backtracking(num,len,0, list);
+        backtracking(num,len,0, list,0);
 
     }
 
 
 
-    private static void backtracking(int num, int len, int depth,List<Integer> list) {
+    private static void backtracking(int num, int len, int depth,List<Integer> list, int beforeIndex) {
 
         if (depth == len) {
 
@@ -49,10 +50,10 @@ public class Solution15649 {
 
         for (int i = 1 ; i <= num ;i++) {
 
-            if (!visited[i]) {
+            if (!visited[i] && i > beforeIndex) {
                 visited[i] = true;
                 list.add(i);
-                backtracking(num,len, depth+1,list);
+                backtracking(num,len, depth+1,list, i);
                 list.remove(depth);
                 visited[i] = false;
             }
