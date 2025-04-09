@@ -1,67 +1,73 @@
+
 package backjoon.backtracking;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Solution1182 {
 
-    private static int answer = 0;
+    /**
+     * 부분수열의 합
+     * 실버2
+     * 백트래킹
+     */
+
+
+    private static boolean[] visited;
+    private static int[] arr;
+    private static int num;
+    private static int target;
+    private static int count = 0;
+
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
-        int size = Integer.parseInt(st.nextToken());
-        int targetNum = Integer.parseInt(st.nextToken());
+        num = Integer.parseInt(st.nextToken());
+        target = Integer.parseInt(st.nextToken());
 
+        arr = new int[num];
+        visited = new boolean[num];
 
-        StringTokenizer st1 = new StringTokenizer(br.readLine(), " ");
-
-        int[] arr = new int[size];
-        boolean[] visited = new boolean[size];
-        for (int i = 0; i < size; i++) {
-            arr[i] = Integer.parseInt(st1.nextToken());
+        st = new StringTokenizer(br.readLine(), " ");
+        for (int i = 0 ; i < num ; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        backtracking(visited, arr, 0, 0, targetNum, -1);
 
-        System.out.println(answer);
+        backtracking(0,0, -1);
+
+        System.out.println(count);
+
     }
 
-    private static void backtracking(boolean[] visited, int[] arr, int depth, int sum, int target, int beforeIndex) {
 
+    private static void backtracking(int depth, int sum, int beforeIndex) {
 
-        if (sum == target || depth == arr.length) {
-            if (sum == target) {
+        if (depth > 0 && sum == target) {
+            count++;
+        }
 
-                if (depth == 0) {
-                    if (arr[0] == target ) {
-                        answer++;
-                    }
-                } else {
-                    answer++;
-                    return;
-                }
-            }
+        if (depth == num) {
+            return;
         }
 
 
-        for (int i = 0 ; i < arr.length ; i++) {
-            if (!visited[i] && i > beforeIndex) {
+        for (int i = beforeIndex+1 ; i < num ; i++) {
 
+            if (!visited[i]) {
                 visited[i] = true;
-                backtracking(visited, arr, depth + 1, sum + arr[i], target, i);
+                backtracking(depth +1, sum + arr[i], i);
                 visited[i] = false;
-
-
             }
+
         }
 
-    }
 
+    }
 
 
 }
