@@ -86,7 +86,6 @@ public class Solution17836 {
 
             if (arr[now[1]][now[0]] == 2) {
                 now[2] = 1;
-                mujuck = true;
             }
 
             for (int i = 0; i < 4; i++) {
