@@ -7,6 +7,12 @@ import java.util.StringTokenizer;
 
 public class Solution14889 {
 
+    /**
+     * 스타트와 링크
+     * 실버1
+     * 백트래킹
+     */
+
     private static int[][] map;
     private static int size;
 
