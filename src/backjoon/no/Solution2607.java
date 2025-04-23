@@ -8,10 +8,9 @@ import java.util.*;
 public class Solution2607 {
 
     /**
-     * 백준 : 비슷한 단어 2607
-     * 알고리즘 :
-     * not sol
-     * 실버 2
+     * 비슷한 단어
+     * 자료구조, 구현
+     * 실버2
      */
 
 
@@ -20,50 +19,61 @@ public class Solution2607 {
 
         int num = Integer.parseInt(br.readLine());
 
-        String str = br.readLine();
-        String[] arr = new String[num-1];
-        for (int i = 0 ; i < num-1 ; i++) {
-            arr[i] = br.readLine();
+        boolean[] visited = new boolean[num];
+
+        Map<Character, Integer>[] map = new Map[num];
+        for (int i = 0; i < num; i++) {
+            map[i] = new HashMap<>();
         }
 
+        for (int i = 0; i < num; i++) {
+            String s = br.readLine();
 
-        Map<Character,Integer> strMap = new HashMap<>();
-        for (int i = 0 ; i < str.length(); i++) {
-            strMap.put(str.charAt(i),strMap.getOrDefault(str.charAt(i),0) +1);
-        }
-
-        int answer = 0;
-        for (int i = 0 ; i < num - 1 ; i++) {
-            Map<Character,Integer> wordMap = new HashMap<>();
-
-            for (int j = 0 ; j < arr[i].length(); j++) {
-                wordMap.put(arr[i].charAt(j),wordMap.getOrDefault(arr[i].charAt(j),0) +1);
+            for (int j = 0; j < s.length(); j++) {
+                char c = s.charAt(j);
+                map[i].put(c, map[i].getOrDefault(c,0) + 1);
             }
 
-            int sum = 0;
-            for (Character key : strMap.keySet()){
-                if (wordMap.getOrDefault(key, 0) != 0) {
-                    sum += Math.abs(strMap.get(key) - wordMap.getOrDefault(key, 0));
+        }
+
+
+        for (int i = 0; i < num; i++) {
+
+
+            for (int j = i+1; j < num; j++) {
+                int diff = 0;
+
+                for (char c : map[i].keySet()) {
+                    int origin = map[i].getOrDefault(c,0);
+                    int target = map[j].getOrDefault(c,0);
+
+                    diff += Math.abs(origin - target);
                 }
-            }
 
-            for (Character key : wordMap.keySet()){
-                if (strMap.getOrDefault(key, 0) == 0) {
-                    sum += wordMap.get(key);
+                if (diff <= 1) {
+                    visited[i] = true;
+                    visited[j] = true;
+
+                    break;
                 }
-            }
 
-            int lengthDiff = Math.abs(str.length() - arr[i].length());
-
-            if ((lengthDiff == 0 && sum <= 2) || (lengthDiff == 1 && sum <= 1) ) {
-                answer++;
             }
         }
 
+        int count = 0;
 
-        System.out.println(answer);
+        for (int i = 0; i < num; i++) {
+            if (visited[i]) {
+                count++;
+            }
+        }
+
+        System.out.println(count);
+
 
     }
+
+
 
 
 }
