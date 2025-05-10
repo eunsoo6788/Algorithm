@@ -3,72 +3,60 @@ package backjoon.backtracking;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Solution3967 {
 
     /**
      * 매직스타
      * 백트래킹
-     * not sol
      * 골드5
      */
 
-    private static int xSize = 9;
-    private static int ySize = 5;
-    private static int size;
-    private static char[][] arr;
-    private static char[] map;
+    private static char[] arr;
     private static boolean[] visited;
+
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+        arr = new char[12];
+        visited = new boolean[12];
 
-        arr = new char[ySize][xSize];
-        size = 'L' - 'A' + 1;
-        visited = new boolean[size];
-        map = new char[size];
-
-
-        for (int i = 0; i < ySize; i++) {
+        int index = 0;
+        int count = 12;
+        for (int i = 0 ; i < 5 ; i++) {
             String str = br.readLine();
-            for (int j = 0; j < xSize; j++) {
-                char c = str.charAt(j);
+            for (int j = 0 ; j < 9 ; j++) {
+                if (str.charAt(j) != '.') {
+                    arr[index] = str.charAt(j);
+                    index++;
 
-                if (c != '.' && c != 'x') {
-                    visited[c - 'A'] = true;
+                    if (str.charAt(j) != 'x') {
+                        visited[str.charAt(j)-'A'] = true;
+                        count--;
+                    }
                 }
-
-                arr[i][j] = c;
-
             }
         }
 
 
-        System.out.println(arr);
+        System.out.println();
 
     }
 
 
-    private static void backTracking(int depth) {
-
-        if (depth == size) {
+    private static void solve() {
 
 
-
-
-
-        }
-
-
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < arr.length; i++) {
 
             if (!visited[i]) {
                 visited[i] = true;
-                map[depth] = (char) ('A' - i);
-                backTracking(depth + 1);
+
                 visited[i] = false;
             }
+
 
         }
 
