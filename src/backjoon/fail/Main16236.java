@@ -57,6 +57,8 @@ public class Main16236 {
                         if (arr[i][j] == 9) {
                             nowY = i;
                             nowX = j;
+
+                            arr[i][j] = 0;
                             break;
                         }
                     }
@@ -99,8 +101,8 @@ public class Main16236 {
         queue.add(new int[]{x, y, 0});
         visited[y][x] = true;
 
-        int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
+        int[] dx = {0, -1, 1, 0};
+        int[] dy = {-1, 0, 0, 1};
 
         while (!queue.isEmpty()) {
             int[] now = queue.poll();
