@@ -3,8 +3,6 @@ package backjoon.greedy;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class Solution11509Re {
@@ -28,33 +26,39 @@ public class Solution11509Re {
         }
 
 
-        List<Integer> list = new ArrayList<>();
-        list.add(arr[0]-1);
-        int max = 0;
+        int count = 1;
+        int height = arr[0];
+        int direction = 0;
+        for (int i = 0; i < n; i++) {
 
-        for (int i = 1; i < n; i++) {
 
-            int size = list.size();
-            boolean flag = false;
+            if (direction == 0) {
+                if (i < n - 1) {
+                    direction = arr[i + 1] - arr[i];
+                    height += direction;
+                } else {
+                    count++;
+                }
 
-            for (int j = 0; j < size; j++) {
-                if (list.get(j) == arr[i]) {
-                    list.remove(j);
-                    list.add(arr[i]-1);
-                    flag = true;
-                    break;
+            } else if (direction == 1 && arr[i] == height) {
+                height += direction;
+
+            } else if (direction == -1 && arr[i] == height) {
+                height += direction;
+            } else {
+                count++;
+                if (i < n - 1) {
+                    direction = arr[i + 1] - arr[i];
+                    height = arr[i] + direction;
                 }
             }
 
-            if (!flag) {
-                list.add(arr[i]-1);
-            }
 
-            max = Math.max(max, list.size());
         }
 
+        System.out.println(count);
 
-        System.out.println(max);
+
 
 
     }
