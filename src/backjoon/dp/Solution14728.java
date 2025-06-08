@@ -6,10 +6,10 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Solution12865 {
+public class Solution14728 {
 
     /**
-     * 평범한 배낭
+     * 벼락치기
      * 골드5
      * 알고리즘 : dp, 배낭문제
      */
@@ -37,8 +37,8 @@ public class Solution12865 {
             int weight = arr[i][0];
             int value = arr[i][1];
 
-            for (int j = bag; j >= weight; j--) {
-                dp[j] = Math.max(dp[j], dp[j - weight] + value);
+            for (int j = bag ; j >= weight ; j--) {
+                dp[j] = Math.max(dp[j], dp[j-weight] + value);
             }
 
         }

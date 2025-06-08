@@ -6,11 +6,11 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Solution12865 {
+public class Solution16493 {
 
     /**
-     * 평범한 배낭
-     * 골드5
+     * 최대 페이지 수
+     * 실버2
      * 알고리즘 : dp, 배낭문제
      */
 
@@ -20,8 +20,8 @@ public class Solution12865 {
         StringTokenizer st = new StringTokenizer(br.readLine());
 
 
-        int num = Integer.parseInt(st.nextToken());
         int bag = Integer.parseInt(st.nextToken());
+        int num = Integer.parseInt(st.nextToken());
 
         int[][] arr = new int[num][2];
         for (int i = 0; i < num; i++) {
@@ -33,16 +33,13 @@ public class Solution12865 {
 
         int[] dp = new int[bag+1];
 
-        for (int i = 0; i < num; i++) {
-            int weight = arr[i][0];
-            int value = arr[i][1];
 
-            for (int j = bag; j >= weight; j--) {
-                dp[j] = Math.max(dp[j], dp[j - weight] + value);
+        for (int i = 0 ; i < num ; i++) {
+
+            for (int j = bag ; j >= arr[i][0] ; j--) {
+                dp[j] = Math.max(dp[j], dp[j-arr[i][0]] + arr[i][1]);
             }
-
         }
-
 
         Arrays.sort(dp);
         System.out.println(dp[bag]);
