@@ -20,7 +20,7 @@ public class Solution1106 {
         StringTokenizer st = new StringTokenizer(br.readLine());
 
 
-        int target = Integer.parseInt(st.nextToken());
+        int bag = Integer.parseInt(st.nextToken());
         int num = Integer.parseInt(st.nextToken());
 
         int[][] arr = new int[num][2];
@@ -33,33 +33,20 @@ public class Solution1106 {
 
         int[] dp = new int[1001];
         Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
 
-        for (int i = 1; i < 1001; i++) {
+        for (int i = 0; i < num; i++) {
+            int weight = arr[i][1];
+            int value = arr[i][0];
 
-            for (int j = 0; j < num; j++) {
-                int money = arr[j][0];
-                int person = arr[j][1];
-
-                if (i % person == 0) {
-
-                    if (i-person > 0) {
-                        dp[i] = Math.min(dp[i], dp[i-person] + money);
-                    } else {
-                        dp[i] = money;
-                    }
-
-                }
+            for (int j = 1000; j >= weight; j--) {
+                dp[j] = Math.min(dp[j], dp[j - weight] + value);
             }
-
         }
 
-
-        int min = Integer.MAX_VALUE;
-
-        for (int i = target; i < 1001; i++) {
-            if (dp[i] != Integer.MAX_VALUE) {
-                min = Math.min(dp[i], min);
-            }
+        int min = 0 ;
+        for (int i = bag; i < 1001; i++) {
+            min = Math.min(min, dp[i]);
         }
 
         System.out.println(min);
