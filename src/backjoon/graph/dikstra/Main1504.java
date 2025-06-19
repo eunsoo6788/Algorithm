@@ -29,145 +29,44 @@ public class Main1504 {
     public static void main(String[] args) throws NumberFormatException, IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int nodeNum = Integer.parseInt(st.nextToken());
-        int edgeNum = Integer.parseInt(st.nextToken());
+        int num = Integer.parseInt(br.readLine());
 
-        List<Node>[] nodes = new List[nodeNum+1];
-        int[] result = new int[nodeNum+1];
-        boolean[] visited = new boolean[nodeNum+1];
+        int[] dx = {-1, 1, 0, 0 };
+        int[] dy = {0, 0, -1, 1 };
 
-        for (int i = 0; i <= nodeNum; i++) {
-            nodes[i] = new ArrayList<>();
-            result[i] = Integer.MAX_VALUE;
-        }
+        int[] result = new int[num];
 
-        for (int i = 0; i < edgeNum; i++) {
-            st = new StringTokenizer(br.readLine());
-            int start = Integer.parseInt(st.nextToken());
-            int end = Integer.parseInt(st.nextToken());
-            int weight = Integer.parseInt(st.nextToken());
+        Arrays.fill(result, Integer.MAX_VALUE);
 
-            nodes[start].add(new Node(end, weight));
-            nodes[end].add(new Node(start, weight));
+
+        List<Node>[] graph = new List[num];
+
+        for (int i = 0; i < num; i++) {
+            graph[i] = new ArrayList<>();
         }
 
 
-        int[] route = new int[4];
-        route[0] = 1;
-        route[3] = nodeNum;
-        st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < 2; i++) {
-            route[i+1] = Integer.parseInt(st.nextToken());
-        }
-
-        int distanceOne = 0;
-        int distanceTwo = 0;
-
-        boolean foundOne = false;
-        boolean foundTwo = false;
+        for (int i = 0; i < num; i++) {
+            for (int j = 0 ; j < num ; j++) {
 
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j <= nodeNum; j++) {
-                result[j] = Integer.MAX_VALUE;
-            }
-            visited = new boolean[nodeNum+1];
+                for (int k = 0; k < 5; k++) {
+                    int nx = j + dx[k];
+                    int ny = i + dy[k];
 
-            int start = route[i];
-            int end = route[i + 1];
-
-
-            PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o.weight));
-            queue.add(new Node(start, 0));
-            result[start] = 0;
-
-            while (!queue.isEmpty()) {
-                Node now = queue.poll();
-
-                if (visited[now.end]) {
-                    continue;
-                }
-                visited[now.end] = true;
-
-                for (Node next : nodes[now.end]) {
-                    if (now.weight + next.weight < result[next.end]) {
-                        result[next.end] = now.weight + next.weight;
-                        queue.add(new Node(next.end, result[next.end]));
+                    if (nx >= 0 && nx < num && ny >= 0 && ny < num) {
                     }
+
+
                 }
 
-
             }
 
-
-            distanceOne += result[end];
-            if (result[end] == Integer.MAX_VALUE) {
-                foundOne = true;
-                break;
-            }
         }
 
 
 
-        int tmp = route[1];
-        route[1] = route[2];
-        route[2] = tmp;
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j <= nodeNum; j++) {
-                result[j] = Integer.MAX_VALUE;
-            }
-            visited = new boolean[nodeNum+1];
-
-            int start = route[i];
-            int end = route[i + 1];
-
-
-            PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o.weight));
-            queue.add(new Node(start, 0));
-            result[start] = 0;
-
-            while (!queue.isEmpty()) {
-                Node now = queue.poll();
-
-                if (visited[now.end]) {
-                    continue;
-                }
-                visited[now.end] = true;
-
-                for (Node next : nodes[now.end]) {
-                    if (now.weight + next.weight < result[next.end]) {
-                        result[next.end] = now.weight + next.weight;
-                        queue.add(new Node(next.end, result[next.end]));
-                    }
-                }
-
-
-            }
-
-
-            distanceTwo += result[end];
-            if (result[end] == Integer.MAX_VALUE) {
-                foundTwo = true;
-                break;
-            }
-        }
-
-        if (foundOne && foundTwo) {
-            System.out.println(-1);
-            return;
-        }
-
-        System.out.println(Math.min(distanceOne, distanceTwo));
 
     }
-
-
-
-
-
-
-
 }
