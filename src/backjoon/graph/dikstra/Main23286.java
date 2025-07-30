@@ -10,101 +10,85 @@ public class Main23286 {
 
     /**
      * 허들넘기
-     * 다익스트라
      * 골드3
+     * https://www.acmicpc.net/problem/23286
      */
 
-    private static class Node {
-        int end;
-        int weight;
 
-        public Node(int end, int weight) {
-            this.end = end;
-            this.weight = weight;
-        }
-    }
 
     public static void main(String[] args) throws NumberFormatException, IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
 
+        StringTokenizer st = new StringTokenizer(br.readLine());
         int nodeNum = Integer.parseInt(st.nextToken());
         int edgeNum = Integer.parseInt(st.nextToken());
-        int tryNum = Integer.parseInt(st.nextToken());
+        int testNum = Integer.parseInt(st.nextToken());
 
+        List<Point>[] graph = new ArrayList[nodeNum+1];
 
-        List<Node>[] lists = new List[nodeNum+1];
-
-        for (int i = 1; i <= nodeNum ; i++) {
-            lists[i] = new ArrayList<>();
+        for (int i = 1; i <= nodeNum; i++) {
+            graph[i] = new ArrayList<>();
         }
 
-
-        for (int i = 0 ; i < edgeNum ; i++) {
-            st = new StringTokenizer(br.readLine()," ");
-
+        for (int i = 0; i < edgeNum; i++) {
+            st = new StringTokenizer(br.readLine());
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
-            int weight = Integer.parseInt(st.nextToken());
-
-            lists[start].add(new Node(end,weight));
+            int height = Integer.parseInt(st.nextToken());
+            graph[start].add(new Point(end, height));
         }
 
-
-        for (int i = 0; i < tryNum ; i++) {
-
-            st = new StringTokenizer(br.readLine()," ");
-            int start = Integer.parseInt(st.nextToken());
-            int end = Integer.parseInt(st.nextToken());
+        for (int t = 0; t < testNum; t++) {
 
             boolean[] visited = new boolean[nodeNum+1];
             int[] result = new int[nodeNum+1];
 
-            for (int j = 1; j <= nodeNum ; j++) {
-                result[j] = Integer.MAX_VALUE;
+            for (int i = 1; i <= nodeNum; i++) {
+                result[i] = Integer.MAX_VALUE;
             }
 
-            PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparing(o -> o.weight));
+            st = new StringTokenizer(br.readLine());
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
+
+
+            Queue<Point> queue = new PriorityQueue<>(Comparator.comparingInt(p -> p.height));
+            queue.add(new Point(start, 0));
             result[start] = 0;
-            pq.add(new Node(start,0));
 
-
-            while (!pq.isEmpty()) {
-
-                Node now = pq.poll();
+            while (!queue.isEmpty()) {
+                Point now = queue.poll();
 
                 if (visited[now.end]) {
                     continue;
                 }
-
                 visited[now.end] = true;
 
-
-                for (Node next : lists[now.end]) {
-
-                    if (next.weight < result[next.end]) {
-                        result[next.end]  = Math.max(now.weight , next.weight);
-                        pq.add(new Node(next.end, result[next.end]));
+                for (Point next : graph[now.end]) {
+                    if (next.height < result[next.end]) {
+                        result[next.end] = next.height;
+                        queue.add(new Point(next.end, result[next.end]));
                     }
                 }
+
             }
 
-
-            if (result[end] == Integer.MAX_VALUE) {
-                System.out.println(-1);
-            } else {
-                System.out.println(result[end]);
-            }
+            System.out.println(result[end] == Integer.MAX_VALUE ? -1 : result[end]);
 
         }
-
-
-
-
     }
 
 
+    private static class Point {
+        int end;
+        int height;
+
+        Point(int end, int height) {
+            this.end = end;
+            this.height = height;
+        }
+    }
 
 
 
