@@ -8,10 +8,10 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class Main10423 {
+public class Main14621Re {
 
     /**
-     * 전기가 부족해
+     * 나만 안되는 연애
      * 골드3
      * MST
      */
@@ -29,6 +29,7 @@ public class Main10423 {
     }
 
     private static int[] result;
+    private static char[] city;
 
     public static void main(String[] args) throws NumberFormatException, IOException {
 
@@ -37,21 +38,26 @@ public class Main10423 {
 
         int nodes = Integer.parseInt(st.nextToken());
         int edges = Integer.parseInt(st.nextToken());
-        int num = Integer.parseInt(st.nextToken());
 
         result = new int[nodes + 1];
+        city = new char[nodes + 1];
         for (int i = 1; i <= nodes; i++) {
             result[i] = i;
         }
 
+        st = new StringTokenizer(br.readLine());
+        for (int i = 1; i <= nodes; i++) {
+            city[i] = st.nextToken().charAt(0);
+        }
+
+
         PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(o -> o.weight));
-        PriorityQueue<Node> abandon = new PriorityQueue<>(Comparator.comparingInt(o -> o.weight));
-        PriorityQueue<Node> keep = new PriorityQueue<>(Comparator.comparingInt(o -> o.weight));
+
         for (int i = 0; i < edges; i++) {
             st = new StringTokenizer(br.readLine());
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
-            int weight = i + 1;
+            int weight = Integer.parseInt(st.nextToken());
             pq.add(new Node(start, end, weight));
         }
 
@@ -59,46 +65,36 @@ public class Main10423 {
         int count = 1;
 
 
+
         while (!pq.isEmpty()) {
             Node now = pq.poll();
 
-            int start = find(now.start);
-            int end = find(now.end);
+            if (city[now.start] != city[now.end]) {
 
-            if (start != end) {
+                int start = find(now.start);
+                int end = find(now.end);
 
-                sum += now.weight;
-                union(start, end);
-                keep.add(now);
-                count++;
-            } else {
-                abandon.add(now);
+                if (start != end) {
+                    sum += now.weight;
+                    union(start, end);
+                    count++;
+                }
+
             }
+
+            if (count == nodes) {
+                break;
+            }
+
+
         }
 
         if (count == nodes) {
             System.out.println(sum);
         } else {
-            System.out.println(0);
+            System.out.println(-1);
         }
 
-        if (num == 1) {
-            return;
-        }
-
-        for (int i = 0; i < num - 1; i++) {
-            // 현재 간선 최저 뺴기
-            Node now = keep.poll();
-            sum -= now.weight;
-            // parents 복구 = ununion
-
-
-
-
-        }
-
-
-        System.out.println(sum);
 
 
     }
